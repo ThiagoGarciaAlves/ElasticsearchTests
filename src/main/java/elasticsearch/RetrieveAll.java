@@ -1,12 +1,10 @@
 package elasticsearch;
 
 import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.client.Client;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 
 public class RetrieveAll extends Abstract {
-    private Client client;
 
     public RetrieveAll() {
         Connection connection = new Connection();
@@ -30,5 +28,7 @@ public class RetrieveAll extends Abstract {
             System.out.println("Organização: " + hit.getSource().get("organizacao"));
             System.out.println("------------------------------");
         }
+
     }
+
 }

@@ -20,16 +20,17 @@ public class InsertUpdateOportunidade extends Abstract {
             .startObject()
                 .field("titulo", titulo)
                 .field("descricao", descricao)
-                .field("organizacao",organizacao)
-                .field("cidade",cidade)
+                .field("organizacao", organizacao)
+                .field("cidade", cidade)
             .endObject();
 
         client.prepareIndex(index, type, id)
             .setSource(builder).execute()
             .actionGet();
+
     }
 
-    public void update(String id, String titulo, String organizacao, String cidade, String descricao) throws ElasticsearchException, Exception {
+    public void update(String id, String titulo, String organizacao, String cidade, String descricao) throws Exception {
 
         XContentBuilder builder = jsonBuilder()
             .startObject()
@@ -42,6 +43,7 @@ public class InsertUpdateOportunidade extends Abstract {
         client.prepareUpdate(index, type, id)
             .setSource(builder).execute()
             .actionGet();
+
     }
 
     public void delete(String id) {
