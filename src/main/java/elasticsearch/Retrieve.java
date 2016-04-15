@@ -4,9 +4,9 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 
-public class RetrieveAll extends Abstract {
+public class Retrieve extends Abstract {
 
-    public RetrieveAll() {
+    public Retrieve() {
         Connection connection = new Connection();
         client = connection.createClient();
     }
