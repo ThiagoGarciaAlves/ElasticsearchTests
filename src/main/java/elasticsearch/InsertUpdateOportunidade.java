@@ -1,6 +1,6 @@
 package elasticsearch;
 
-import org.elasticsearch.ElasticsearchException;
+import elasticsearch.dao.Connection;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 
 import java.io.IOException;
