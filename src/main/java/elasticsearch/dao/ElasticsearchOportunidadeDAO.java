@@ -3,11 +3,15 @@ package elasticsearch.dao;
 import elasticsearch.model.Oportunidade;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.Client;
+import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
 
 public class ElasticsearchOportunidadeDAO implements OportunidadeDAO {
 
@@ -21,15 +25,41 @@ public class ElasticsearchOportunidadeDAO implements OportunidadeDAO {
         type = "oportunidade";
     }
 
-    public void inserirOportunidade(Oportunidade oportunidade) {
+    public void inserirOportunidade(Oportunidade oportunidade) throws IOException {
+
+        XContentBuilder builder = jsonBuilder()
+                .startObject()
+                .field("titulo", oportunidade.getTitulo())
+                .field("descricao", oportunidade.getDescricao())
+                .field("organizacao", oportunidade.getOrganizacao())
+                .field("cidade", oportunidade.getCidade())
+                .endObject();
+
+        client.prepareIndex(index, type, oportunidade.getId())
+                .setSource(builder).execute()
+                .actionGet();
 
     }
 
-    public void alterarOportunidade(Oportunidade oportunidade) {
+    public void alterarOportunidade(Oportunidade oportunidade) throws Exception {
+
+        XContentBuilder builder = jsonBuilder()
+                .startObject()
+                .field("titulo", oportunidade.getTitulo())
+                .field("descricao", oportunidade.getDescricao())
+                .field("organizacao", oportunidade.getOrganizacao())
+                .field("cidade", oportunidade.getCidade())
+                .endObject();
+
+        client.prepareUpdate(index, type, oportunidade.getId())
+                .setSource(builder).execute()
+                .actionGet();
 
     }
 
     public void excluirOportunidade(Oportunidade oportunidade) {
+
+        client.prepareDelete(index, type, oportunidade.getId());
 
     }
 

@@ -26,8 +26,5 @@ public class Tests {
         }
         System.out.println("\n### Quantidade de oportunidades = " + oportunidades.size());
 
-//        InsertUpdateOportunidade insertUpdateOportunidade = new InsertUpdateOportunidade();
-//        insertUpdateOportunidade.create("1", "Oportunidade", "Organização", "Cidade", "Descrição");
-
     }
 }
