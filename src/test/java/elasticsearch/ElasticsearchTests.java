@@ -1,8 +1,12 @@
 package elasticsearch;
 
 import elasticsearch.dao.DAOFactory;
+import elasticsearch.dao.ElasticsearchDAOFactory;
 import elasticsearch.dao.OportunidadeDAO;
 import elasticsearch.model.Oportunidade;
+import org.elasticsearch.action.admin.indices.create.CreateIndexResponse;
+import org.elasticsearch.action.admin.indices.delete.DeleteIndexResponse;
+import org.elasticsearch.client.Client;
 import org.junit.Test;
 
 import java.util.List;
@@ -10,6 +14,24 @@ import java.util.List;
 import static org.junit.Assert.assertTrue;
 
 public class ElasticsearchTests {
+
+    private Client client;
+    private String index;
+    private String type;
+
+    public ElasticsearchTests() {
+        client = ElasticsearchDAOFactory.createConnection().createClient();
+        index = "elasticsearch_tests";
+        type = "test";
+    }
+
+    @Test
+    public void createDeleteIndexTest() {
+        CreateIndexResponse createIndexResponse = client.admin().indices().prepareCreate(index).execute().actionGet();
+        assertTrue(createIndexResponse.isAcknowledged());
+        DeleteIndexResponse deleteIndexResponse = client.admin().indices().prepareDelete(index).execute().actionGet();
+        assertTrue(deleteIndexResponse.isAcknowledged());
+    }
 
     @Test
     public void obterTodasOportunidadesTest() {
