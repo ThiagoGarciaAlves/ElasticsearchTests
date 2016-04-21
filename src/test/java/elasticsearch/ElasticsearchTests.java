@@ -3,12 +3,18 @@ package elasticsearch;
 import elasticsearch.dao.DAOFactory;
 import elasticsearch.dao.OportunidadeDAO;
 import elasticsearch.model.Oportunidade;
+import org.junit.Test;
 
 import java.util.List;
 
-public class Tests {
+import static org.junit.Assert.assertTrue;
 
-    public static void main(String... args) throws Exception {
+public class ElasticsearchTests {
+
+    @Test
+    public void obterTodasOportunidadesTest() {
+
+        System.out.println("obterTodasOportunidadesTest");
 
         OportunidadeDAO oportunidadeDAO = DAOFactory.getDAOFactory().getOportunidadeDAO();
 
@@ -25,6 +31,8 @@ public class Tests {
             System.out.println("-------------------------");
         }
         System.out.println("\n### Quantidade de oportunidades = " + oportunidades.size());
+
+        assertTrue(oportunidades.size() > 0);
 
     }
 }
